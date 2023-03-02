@@ -34,6 +34,7 @@ type Station struct {
 	Channel         int
 	FirstSeen       time.Time
 	Hostname        string // Device-provided name
+	HostnameSource  string // Device-provided name
 	IdleTime        time.Duration
 	IP              net.IP
 	IsWired         bool
@@ -42,7 +43,9 @@ type Station struct {
 	RoamCount       int
 	Name            string // Unifi-set name
 	Noise           int
+	Oui             string
 	RSSI            int
+	Signal          int
 	SiteID          string
 	Stats           *StationStats
 	Uptime          time.Duration
@@ -84,6 +87,7 @@ func (s *Station) UnmarshalJSON(b []byte) error {
 		Channel:         sta.Channel,
 		FirstSeen:       time.Unix(int64(sta.FirstSeen), 0),
 		Hostname:        sta.Hostname,
+		HostnameSource:  sta.HostnameSource,
 		IdleTime:        time.Duration(time.Duration(sta.Idletime) * time.Second),
 		IP:              net.ParseIP(sta.IP),
 		IsWired:         sta.IsWired,
@@ -91,8 +95,10 @@ func (s *Station) UnmarshalJSON(b []byte) error {
 		MAC:             mac,
 		Name:            sta.Name,
 		Noise:           sta.Noise,
+		Oui:             sta.Oui,
 		RSSI:            sta.RSSI,
 		RoamCount:       sta.RoamCount,
+		Signal:          sta.Signal,
 		SiteID:          sta.SiteID,
 		Stats: &StationStats{
 			ReceiveBytes:    sta.RxBytes,
@@ -128,6 +134,7 @@ type station struct {
 	Essid            string `json:"essid"`
 	FirstSeen        int    `json:"first_seen"`
 	Hostname         string `json:"hostname"`
+	HostnameSource   string `json:"hostname_source"`
 	Idletime         int    `json:"idletime"`
 	IP               string `json:"ip"`
 	IsGuest          bool   `json:"is_guest"`
