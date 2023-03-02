@@ -21,7 +21,7 @@ const (
 
 	// userAgent is the default user agent this package will report to the UniFi
 	// Controller v4 API.
-	userAgent = "github.com/mdlayher/unifi"
+	userAgent = "github.com/visago/unifi"
 )
 
 // InsecureHTTPClient creates a *http.Client which does not verify a UniFi
